@@ -17,6 +17,30 @@ function mul(a, b) {
   return new Complex(r, v);
 }
 
+class HBS {
+  constructor(h, b, s) {
+    this.hue = h;
+    this.brightness = b;
+    this.saturation = s;
+  }
+
+  toRGB() {
+
+  }
+}
+
+class RGB {
+  constructor(r, g, b) {
+    this.red = r;
+    this.green = g;
+    this.blue = b;
+  }
+
+  toHBS() {
+
+  }
+}
+
 var a = new Complex(3, 2);
 var b = new Complex(1, -4);
 
@@ -39,7 +63,7 @@ function divergent(z, c, count = 5) {
   var minX = Math.min(...x);
   var maxY = Math.max(...y);
   var minY = Math.min(...y);
-  return (maxX - minX) * (maxY - minY);
+  return (maxX - minX) + (maxY - minY);
 }
 
 var result = divergent(new Complex(0, 0), new Complex(-0.5, 0));
@@ -52,11 +76,11 @@ var result = divergent(new Complex(0.5, 0.3), new Complex(-0.5, 0));
 console.log(result);
 // astringent
 
-function julia (c, step = 0.1, count) {
+function julia (window, c, step = 0.1, count) {
   var set = [];
-  for (var y = 1.3; y >= -1.3; y = y - step) {
+  for (var y = window / 2; y >= -window / 2; y = y - step) {
     var line = [];
-    for (var x = -1.3; x <= 1.3; x = x + step) {
+    for (var x = - window / 2; x <= window / 2; x = x + step) {
       var z = new Complex(x, y);
       line.push(divergent(z, c, count));
     }
@@ -65,6 +89,19 @@ function julia (c, step = 0.1, count) {
   return set;
 }
 
+
+// let imageSize = CGSize(width: 600, height: 440)
+// var julia = JuliaSet()
+
+// julia.window = 4.0
+// julia.const = Complex(-0.5, 0.0)
+// julia.color = JuliaSetColor(
+//     hue: 0,
+//     brightness: 0.87,
+//     saturation: 0.9
+// )
+
+// let outputImage = JuliaSetRenderer.syncRender(julia, pixelSize: imageSize)
 // // out
 // hsb.h = self.hue
 // hsb.s = self.brightness / 10 + 0.65 * self.saturation
